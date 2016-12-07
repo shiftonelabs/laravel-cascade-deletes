@@ -117,7 +117,7 @@ trait CascadesDeletes
     {
         $deletes = $this->getCascadeDeletes();
 
-        return array_filter(is_array($deletes) ? $deletes : [ $deletes ]);
+        return array_filter(is_array($deletes) ? $deletes : [$deletes]);
     }
 
     /**
