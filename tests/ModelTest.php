@@ -9,8 +9,6 @@ class ModelTest extends TestCase
 {
     public function testModelUsesCascadingDeletesTrait()
     {
-        $user = new ExtendedUser();
-
-        $this->assertContains(CascadesDeletes::class, class_uses_recursive($user));
+        $this->assertContains(CascadesDeletes::class, class_uses_recursive(ExtendedUser::class));
     }
 }
