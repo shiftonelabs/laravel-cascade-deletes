@@ -1,0 +1,39 @@
+{
+    "name": "shiftonelabs/laravel-cascade-deletes",
+    "description": "Adds application level cascading deletes to Eloquent Models.",
+    "keywords": ["laravel", "lumen", "eloquent", "model", "cascade", "deletes"],
+    "homepage": "https://github.com/shiftonelabs/laravel-cascade-deletes",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Patrick Carlo-Hickman",
+            "email": "patrick@shiftonelabs.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/shiftonelabs/laravel-cascade-deletes/issues",
+        "source": "https://github.com/shiftonelabs/laravel-cascade-deletes"
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "illuminate/database": ">=4.1",
+        "illuminate/events": ">=4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "mockery/mockery": "~0.9",
+        "squizlabs/php_codesniffer": "2.*",
+        "shiftonelabs/codesniffer-standard": "0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ShiftOneLabs\\LaravelCascadeDeletes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ShiftOneLabs\\LaravelCascadeDeletes\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable"
+}
