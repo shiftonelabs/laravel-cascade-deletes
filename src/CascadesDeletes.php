@@ -185,7 +185,9 @@ trait CascadesDeletes
         // indication that the delete should be forced is when
         // the softDelete property is set to false.
         if (property_exists($this, 'softDelete') && !class_exists(SoftDeletingScope::class)) {
+            // @codeCoverageIgnoreStart
             return !$this->softDelete;
+            // @codeCoverageIgnoreEnd
         }
 
         return property_exists($this, 'forceDeleting') && $this->forceDeleting;
