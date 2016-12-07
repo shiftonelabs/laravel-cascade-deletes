@@ -33,7 +33,10 @@
     "autoload-dev": {
         "psr-4": {
             "ShiftOneLabs\\LaravelCascadeDeletes\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/helpers.php"
+        ]
     },
     "minimum-stability": "stable"
 }
