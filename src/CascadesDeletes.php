@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 trait CascadesDeletes
 {
@@ -46,7 +47,7 @@ trait CascadesDeletes
                         $expected = $model->getCascadeDeletesRelationQuery($relationName)->count();
 
                         $deleted = $model->getCascadeDeletesRelationQuery($relationName)->detach();
-                    } elseif ($relation instanceof HasOneOrMany) {
+                    } elseif ($relation instanceof HasOneOrMany || $relation instanceof BelongsTo) {
                         // Process the one-to-one and one-to-many relationships
                         // on the model. These relationships should actually
                         // delete the related records from the database.
