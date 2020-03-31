@@ -10,18 +10,18 @@ if (FeatureDetection::softDeletesTraitExists()) {
     // Setup this trait to use the SoftDeletes trait.
     trait SoftDeleteTrait
     {
-        use SoftDeletes;
+        use SoftCountTrait, SoftDeletes;
     }
 } elseif (FeatureDetection::softDeletingTraitExists()) {
     // Setup this trait to use the SoftDeletingTrait trait.
     trait SoftDeleteTrait
     {
-        use SoftDeletingTrait;
+        use SoftCountTrait, SoftDeletingTrait;
     }
 } else {
-    // Since there are no soft delete traits, this trait doesn't do anything.
+    // Since there are no soft delete traits, this trait won't include any.
     trait SoftDeleteTrait
     {
-        //
+        use SoftCountTrait;
     }
 }
