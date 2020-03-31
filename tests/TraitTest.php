@@ -206,7 +206,9 @@ class TraitTest extends TestCase
 
         $query = $user->getCascadeDeletesRelationQuery($user->getCascadeDeletesRelationNames()[0])->getQuery();
 
-        if (FeatureDetection::softDeleteAsProperty()) {
+        if (FeatureDetection::handlesRemovedScopes()) {
+            $this->assertNotContains(SoftDeletingScope::class, $query->removedScopes());
+        } else {
             $hasConstraint = false;
 
             foreach ((array) $query->getQuery()->wheres as $key => $where) {
@@ -217,8 +219,6 @@ class TraitTest extends TestCase
             }
 
             $this->assertTrue($hasConstraint);
-        } else {
-            $this->assertNotContains(SoftDeletingScope::class, $query->removedScopes());
         }
     }
 
@@ -234,7 +234,9 @@ class TraitTest extends TestCase
 
         $query = $user->getCascadeDeletesRelationQuery($user->getCascadeDeletesRelationNames()[0])->getQuery();
 
-        if (FeatureDetection::softDeleteAsProperty()) {
+        if (FeatureDetection::handlesRemovedScopes()) {
+            $this->assertContains(SoftDeletingScope::class, $query->removedScopes());
+        } else {
             $hasConstraint = false;
 
             foreach ((array) $query->getQuery()->wheres as $key => $where) {
@@ -245,8 +247,6 @@ class TraitTest extends TestCase
             }
 
             $this->assertFalse($hasConstraint);
-        } else {
-            $this->assertContains(SoftDeletingScope::class, $query->removedScopes());
         }
     }
 }

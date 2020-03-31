@@ -3,6 +3,7 @@
 namespace ShiftOneLabs\LaravelCascadeDeletes\Tests;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
@@ -55,5 +56,17 @@ class FeatureDetection
     public static function softDeletesTraitExists()
     {
         return trait_exists(SoftDeletes::class);
+    }
+
+    /**
+     * Determine if removed scopes are handled gracefully.
+     *
+     * Gracefully handling removed scopes was added in Laravel 5.2.
+     *
+     * @return bool
+     */
+    public static function handlesRemovedScopes()
+    {
+        return method_exists(Builder::class, 'removedScopes');
     }
 }
