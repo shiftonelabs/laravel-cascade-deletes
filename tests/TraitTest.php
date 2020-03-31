@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\User;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftUser;
+use ShiftOneLabs\LaravelCascadeDeletes\Tests\FeatureDetection;
 
 class TraitTest extends TestCase
 {
@@ -174,7 +175,11 @@ class TraitTest extends TestCase
     {
         $user = new SoftUser();
 
-        $this->setRestrictedValue($user, 'forceDeleting', true);
+        if (FeatureDetection::softDeleteAsProperty()) {
+            $this->setRestrictedValue($user, 'softDelete', false);
+        } else {
+            $this->setRestrictedValue($user, 'forceDeleting', true);
+        }
 
         $this->assertTrue($user->isCascadeDeletesForceDeleting());
     }
@@ -201,17 +206,47 @@ class TraitTest extends TestCase
 
         $query = $user->getCascadeDeletesRelationQuery($user->getCascadeDeletesRelationNames()[0])->getQuery();
 
-        $this->assertNotContains(SoftDeletingScope::class, $query->removedScopes());
+        if (FeatureDetection::softDeleteAsProperty()) {
+            $hasConstraint = false;
+
+            foreach ((array) $query->getQuery()->wheres as $key => $where) {
+                if ($where['type'] == 'Null' && $where['column'] == $user->getQualifiedDeletedAtColumn()) {
+                    $hasConstraint = true;
+                    break;
+                }
+            }
+
+            $this->assertTrue($hasConstraint);
+        } else {
+            $this->assertNotContains(SoftDeletingScope::class, $query->removedScopes());
+        }
     }
 
     public function testCascadeDeletesRelationQueryIncludesTrashedWhenForceDeleting()
     {
         $user = new SoftUser();
 
-        $this->setRestrictedValue($user, 'forceDeleting', true);
+        if (FeatureDetection::softDeleteAsProperty()) {
+            $this->setRestrictedValue($user, 'softDelete', false);
+        } else {
+            $this->setRestrictedValue($user, 'forceDeleting', true);
+        }
 
         $query = $user->getCascadeDeletesRelationQuery($user->getCascadeDeletesRelationNames()[0])->getQuery();
 
-        $this->assertContains(SoftDeletingScope::class, $query->removedScopes());
+        if (FeatureDetection::softDeleteAsProperty()) {
+            $hasConstraint = false;
+
+            foreach ((array) $query->getQuery()->wheres as $key => $where) {
+                if ($where['type'] == 'Null' && $where['column'] == $user->getQualifiedDeletedAtColumn()) {
+                    $hasConstraint = true;
+                    break;
+                }
+            }
+
+            $this->assertFalse($hasConstraint);
+        } else {
+            $this->assertContains(SoftDeletingScope::class, $query->removedScopes());
+        }
     }
 }

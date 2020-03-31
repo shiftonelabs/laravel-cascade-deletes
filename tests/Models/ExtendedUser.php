@@ -6,6 +6,8 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletesModel;
 
 class ExtendedUser extends CascadesDeletesModel
 {
+    use BootsCascadesDeletesTrait;
+
     protected $guarded = [];
 
     protected $cascadeDeletes = ['friends', 'posts', 'photos', 'comments', 'profile'];

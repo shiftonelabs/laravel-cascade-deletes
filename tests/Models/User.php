@@ -7,7 +7,7 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 class User extends Model
 {
-    use CascadesDeletes;
+    use CascadesDeletes, BootsCascadesDeletesTrait;
 
     protected $guarded = [];
 
