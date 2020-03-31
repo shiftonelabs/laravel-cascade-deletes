@@ -311,29 +311,21 @@ class IntegrationTest extends TestCase
 
     public function testForcedSoftDeletesMixedRelatedRecords()
     {
-        try {
-            $user = SoftUser::create(['email' => 'user@example.com']);
-            $user->profile()->create([]);
-            $user->profile()->delete();
+        $user = SoftUser::create(['email' => 'user@example.com']);
+        $user->profile()->create([]);
+        $user->profile()->first()->delete();
 
-            $this->assertEquals(2, SoftUser::withTrashed()->count() + SoftProfile::withTrashed()->count());
+        $this->assertEquals(2, SoftUser::withTrashed()->count() + SoftProfile::withTrashed()->count());
 
-            $user->profile()->create([]);
+        $user->profile()->create([]);
 
-            $this->assertEquals(2, SoftUser::count() + SoftProfile::count());
-            $this->assertEquals(3, SoftUser::withTrashed()->count() + SoftProfile::withTrashed()->count());
+        $this->assertEquals(2, SoftUser::count() + SoftProfile::count());
+        $this->assertEquals(3, SoftUser::withTrashed()->count() + SoftProfile::withTrashed()->count());
 
-            $user->forceDelete();
+        $user->forceDelete();
 
-            $this->assertEquals(0, SoftUser::count() + SoftProfile::count());
-            $this->assertEquals(0, SoftUser::withTrashed()->count() + SoftProfile::withTrashed()->count());
-        } catch (Throwable $e) {
-            if (stripos($e->getMessage(), 'count():') === 0) {
-                $this->markTestSkipped('Soft delete implementations in older versions of Laravel throw exceptions in PHP >= 7.2: '.$e->getMessage());
-            }
-
-            throw $e;
-        }
+        $this->assertEquals(0, SoftUser::count() + SoftProfile::count());
+        $this->assertEquals(0, SoftUser::withTrashed()->count() + SoftProfile::withTrashed()->count());
     }
 
     public function testSoftDeletesTransactionIsRolledBack()
