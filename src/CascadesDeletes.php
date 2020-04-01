@@ -69,7 +69,11 @@ trait CascadesDeletes
                             // forceDelete doesn't return anything until Laravel 5.2. Check
                             // exists property to determine if the delete was successful
                             // since that is the last thing set before delete returns.
-                            $deleted += !$child->exists;
+                            //
+                            // Starting in Laravel 5.5, soft deleted records do not set the
+                            // exists property to false, so if exists is still true, we
+                            // need to check if the deleted at column is set.
+                            $deleted += (!$child->exists || (method_exists($child, 'getDeletedAtColumn') && !empty($child->{$child->getDeletedAtColumn()})));
                         }
                     } else {
                         // Not all relationship types make sense for cascading. As an
