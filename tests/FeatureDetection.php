@@ -5,6 +5,7 @@ namespace ShiftOneLabs\LaravelCascadeDeletes\Tests;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class FeatureDetection
@@ -31,7 +32,7 @@ class FeatureDetection
      */
     public static function softDeleteAsProperty()
     {
-        return property_exists(Model::class, 'softDelete');
+        return property_exists(Model::class, 'softDelete') && !class_exists(SoftDeletingScope::class);
     }
 
     /**
