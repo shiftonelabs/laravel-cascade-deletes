@@ -1,14 +1,50 @@
 build:
-    environment:
-        php: '5.6.9'
-
     tests:
         override:
             -
-                command: 'phpunit --coverage-clover=some-file'
-                coverage:
-                    file: 'some-file'
-                    format: 'php-clover'
-                    
+                command: 'vendor/bin/phpunit'
+
+    nodes:
+        php55:
+            environment:
+                php: 5.5
+
+        php56:
+            environment:
+                php: 5.6
+
+        php70:
+            environment:
+                php: 7.0
+
+        php71:
+            environment:
+                php: 7.1
+
+        php72:
+            environment:
+                php: 7.2
+
+        php73:
+            environment:
+                php: 7.3
+
+        php74:
+            environment:
+                php: 7.4
+
+        analysis:
+            environment:
+                php: 7.4
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    - phpcs-run
+
 filter:
     excluded_paths: [tests/*]
+
+tools:
+    external_code_coverage:
+        timeout: 5400
+        runs: 70
