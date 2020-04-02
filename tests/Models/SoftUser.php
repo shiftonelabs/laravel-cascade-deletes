@@ -13,21 +13,21 @@ class SoftUser extends User
 
     public function friends()
     {
-        return $this->belongsToMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftUser', 'friends', 'user_id', 'friend_id');
+        return $this->belongsToMany(SoftUser::class, 'friends', 'user_id', 'friend_id');
     }
 
     public function posts()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftPost', 'user_id');
+        return $this->hasMany(SoftPost::class, 'user_id');
     }
 
     public function comments()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Comment', 'user_id');
+        return $this->hasMany(Comment::class, 'user_id');
     }
 
     public function profile()
     {
-        return $this->hasOne('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftProfile', 'user_id');
+        return $this->hasOne(SoftProfile::class, 'user_id');
     }
 }

@@ -15,31 +15,31 @@ class User extends Model
 
     public function friends()
     {
-        return $this->belongsToMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\User', 'friends', 'user_id', 'friend_id');
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
     }
 
     public function posts()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Post');
+        return $this->hasMany(Post::class);
     }
 
     public function photos()
     {
-        return $this->morphMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Photo', 'imageable');
+        return $this->morphMany(Photo::class, 'imageable');
     }
 
     public function comments()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function profile()
     {
-        return $this->hasOne('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Profile');
+        return $this->hasOne(Profile::class);
     }
 
     public function permanentPosts()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\PermanentPost');
+        return $this->hasMany(PermanentPost::class);
     }
 }

@@ -13,21 +13,21 @@ class SoftPost extends Post
 
     public function user()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftUser');
+        return $this->belongsTo(SoftUser::class);
     }
 
     public function childPosts()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftPost', 'parent_id');
+        return $this->hasMany(SoftPost::class, 'parent_id');
     }
 
     public function parentPost()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftPost', 'parent_id');
+        return $this->belongsTo(SoftPost::class, 'parent_id');
     }
 
     public function comments()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Comment', 'post_id');
+        return $this->hasMany(Comment::class, 'post_id');
     }
 }

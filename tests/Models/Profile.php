@@ -10,6 +10,6 @@ class Profile extends Model
 
     public function user()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\User');
+        return $this->belongsTo(User::class);
     }
 }

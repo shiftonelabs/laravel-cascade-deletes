@@ -15,31 +15,31 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function photos()
     {
-        return $this->morphMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Photo', 'imageable');
+        return $this->morphMany(Photo::class, 'imageable');
     }
 
     public function childPosts()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Post', 'parent_id');
+        return $this->hasMany(Post::class, 'parent_id');
     }
 
     public function parentPost()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Post', 'parent_id');
+        return $this->belongsTo(Post::class, 'parent_id');
     }
 
     public function comments()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function invalidKids()
     {
-        return $this->morphMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\InvalidKid', 'invalidable');
+        return $this->morphMany(InvalidKid::class, 'invalidable');
     }
 }

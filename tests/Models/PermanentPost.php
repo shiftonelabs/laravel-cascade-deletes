@@ -8,22 +8,22 @@ class PermanentPost extends Post
 
     public function user()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function childPosts()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\PermanentPost', 'parent_id');
+        return $this->hasMany(PermanentPost::class, 'parent_id');
     }
 
     public function parentPost()
     {
-        return $this->belongsTo('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\PermanentPost', 'parent_id');
+        return $this->belongsTo(PermanentPost::class, 'parent_id');
     }
 
     public function comments()
     {
-        return $this->hasMany('\ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Comment', 'post_id');
+        return $this->hasMany(Comment::class, 'post_id');
     }
 
     public function delete()
