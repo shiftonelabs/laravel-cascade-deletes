@@ -11,6 +11,10 @@ This Laravel/Lumen package provides application level cascading deletes for the 
 
 For example, if you are using `SoftDeletes`, or are using polymorphic relationships, these are situations where foreign keys in the database cannot enforce referential integrity, and the application needs to step in. This package can help.
 
+## Versions
+
+This package has been tested on Laravel 4.1 through Laravel 7.x, though it may continue to work on later versions as they are released. This section will be updated to reflect the versions on which the package has actually been tested.
+
 ## Install
 
 Via Composer
@@ -30,6 +34,19 @@ Once that is done, define the `$cascadeDeletes` property on the `Model`. The `$c
 Now, when a parent record is deleted, the defined child records will also be deleted. Furthermore, in the case where a child record also has cascading deletes defined, the delete will cascade down and delete the related records of the child, as well. This will continue on until all children, grandchildren, great grandchildren, etc. are deleted.
 
 Additionally, all cascading deletes are performed within a transaction. This makes the delete an "all or nothing" event. If, for any reason, a child record could not be deleted, the transaction will rollback and no records will be deleted at all. The `Exception` that caused the child not to be deleted will bubble up to where the `delete()` originally started, and will need to be caught and handled.**
+
+#### Laravel 4.1 ONLY
+
+Since Laravel 4.1 does not automatically boot traits, you will need to also add the following method to your model:
+
+``` php
+protected static function boot
+{
+    parent::boot();
+
+    static::bootCascadesDeletes();
+}
+```
 
 #### Code Example
 
@@ -113,17 +130,6 @@ The deletes will also cross the boundary between soft deletes and hard deletes. 
 - The functionality in this package is provided through the `deleting` event on the `Model`. Therefore, in order for the cascading deletes to work, `delete()` must be called on a model instance. Deletes will not cascade if a delete is performed through the query builder. For example, `App\User::where('active', 0)->delete();` will only delete those user records, and will not perform any cascading deletes, since the `delete()` was performed on the query builder and not on a model instance.
 
 - Do not add a `BelongsTo` relationship to the `$cascadeDeletes` array. This will cause a `LogicException`, and no records will be deleted. This is done as a `BelongsTo` typically represents a child record, and it usually does not make sense to delete a parent record from a child record.
-
-- This package works with the `illuminate/database` package from `4.1` through `5.3`, meaning Laravel 4.1+, Laravel 5.0+, and Lumen 5.0+ are all supported. However, if using `4.1` specifically, there is one additional piece of setup. Since `4.1` does not automatically boot traits, you will need to add the following method to your model:
-
-    ``` php
-    protected static function boot
-    {
-        parent::boot();
-
-        static::bootCascadesDeletes();
-    }
-    ```
 
 ## Contributing
 
