@@ -2,12 +2,7 @@
 
 namespace ShiftOneLabs\LaravelCascadeDeletes\Tests;
 
-use Throwable;
 use LogicException;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Capsule\Manager as DB;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Post;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\User;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\Photo;
@@ -17,7 +12,6 @@ use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftPost;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftUser;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\InvalidKid;
 use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\SoftProfile;
-use ShiftOneLabs\LaravelCascadeDeletes\Tests\Models\PermanentPost;
 
 class IntegrationTest extends TestCase
 {
