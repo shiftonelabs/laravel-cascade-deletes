@@ -20,10 +20,10 @@
         "illuminate/events": ">=4.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0",
         "mockery/mockery": "~0.9",
-        "squizlabs/php_codesniffer": "2.*",
-        "shiftonelabs/codesniffer-standard": "0.*"
+        "phpunit/phpunit": "~4.0",
+        "shiftonelabs/codesniffer-standard": "0.*",
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
         "psr-4": {
@@ -37,6 +37,9 @@
         "files": [
             "tests/helpers.php"
         ]
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "stable"
 }
