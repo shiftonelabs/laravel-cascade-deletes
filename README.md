@@ -20,7 +20,7 @@ This package has been tested on Laravel 4.1 through Laravel 7.x, though it may c
 Via Composer
 
 ``` bash
-$ composer require shiftonelabs/laravel-cascade-deletes
+composer require shiftonelabs/laravel-cascade-deletes
 ```
 
 ## Usage
