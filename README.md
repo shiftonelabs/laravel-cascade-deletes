@@ -13,7 +13,7 @@ For example, if you are using `SoftDeletes`, or are using polymorphic relationsh
 
 ## Versions
 
-This package has been tested on Laravel 4.1 through Laravel 7.x, though it may continue to work on later versions as they are released. This section will be updated to reflect the versions on which the package has actually been tested.
+This package has been tested on Laravel 4.1 through Laravel 8.x, though it may continue to work on later versions as they are released. This section will be updated to reflect the versions on which the package has actually been tested.
 
 ## Install
 
