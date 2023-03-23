@@ -11,10 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New changelog.
 
 ### Changed
-- Update tests to work with all supported Laravel versions.
-- Update CI configs for increased test coverage across versions.
+- Updated tests to work with all supported Laravel versions.
+- Updated CI configs for increased test coverage across versions.
 - Small code cleanup items across the code base.
-- Update readme with new version information.
+- Updated readme with new version information.
 - Sort the packages in composer.json.
 
 ### Fixed
