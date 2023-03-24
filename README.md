@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.txt)
-[![Build Status][ico-travis]][link-travis]
+[![Build Status][ico-github-actions]][link-github-actions]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -150,13 +150,13 @@ The MIT License (MIT). Please see [License File](LICENSE.txt) for more informati
 
 [ico-version]: https://img.shields.io/packagist/v/shiftonelabs/laravel-cascade-deletes.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/shiftonelabs/laravel-cascade-deletes/master.svg?style=flat-square
+[ico-github-actions]: https://img.shields.io/github/actions/workflow/status/shiftonelabs/laravel-cascade-deletes/.github/workflows/phpunit.yml?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/shiftonelabs/laravel-cascade-deletes.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/shiftonelabs/laravel-cascade-deletes.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/shiftonelabs/laravel-cascade-deletes.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/shiftonelabs/laravel-cascade-deletes
-[link-travis]: https://travis-ci.org/shiftonelabs/laravel-cascade-deletes
+[link-github-actions]: https://github.com/shiftonelabs/laravel-cascade-deletes/actions
 [link-scrutinizer]: https://scrutinizer-ci.com/g/shiftonelabs/laravel-cascade-deletes/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/shiftonelabs/laravel-cascade-deletes
 [link-downloads]: https://packagist.org/packages/shiftonelabs/laravel-cascade-deletes

@@ -1,0 +1,131 @@
+name: Phpunit
+
+on: [push, pull_request]
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+
+    name: phpcs - PHP 7.4
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # Setup the PHP version to use.
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      # Dependencies needed for the shiftonelabs/codesniffer-standard package.
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+
+      # Run the phpcs tool.
+      - name: Run phpcs
+        run: ./vendor/bin/phpcs
+
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Turn off fail-fast so that all jobs will run even when one fails,
+      # and the build will still get marked as failed.
+      fail-fast: false
+
+      matrix:
+        os: [ubuntu-latest]
+        php: ['7.0', '7.1', '7.2', '7.3', '7.4']
+        laravel: ['4.1.*', '4.2.*', '5.0.*', '5.1.*', '5.2.*', '5.3.*', '5.4.*', '5.5.*', '5.6.*', '5.7.*', '5.8.*', '6.*', '7.*', '8.*']
+        include:
+          - os: ubuntu-latest
+            php: '5.5'
+            laravel: '4.1.*'
+          - os: ubuntu-latest
+            php: '5.5'
+            laravel: '4.2.*'
+          - os: ubuntu-latest
+            php: '5.5'
+            laravel: '5.0.*'
+          - os: ubuntu-latest
+            php: '5.5'
+            laravel: '5.1.*'
+          - os: ubuntu-latest
+            php: '5.5'
+            laravel: '5.2.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '4.1.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '4.2.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '5.0.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '5.1.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '5.2.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '5.3.*'
+          - os: ubuntu-latest
+            php: '5.6'
+            laravel: '5.4.*'
+        exclude:
+          - php: '7.0'
+            laravel: '5.6.*'
+          - php: '7.0'
+            laravel: '5.7.*'
+          - php: '7.0'
+            laravel: '5.8.*'
+          - php: '7.0'
+            laravel: '6.*'
+          - php: '7.0'
+            laravel: '7.*'
+          - php: '7.0'
+            laravel: '8.*'
+          - php: '7.1'
+            laravel: '6.*'
+          - php: '7.1'
+            laravel: '7.*'
+          - php: '7.1'
+            laravel: '8.*'
+          - php: '7.2'
+            laravel: '8.*'
+
+    name: tests - PHP ${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          # We need more than 1 commit to prevent the "Failed to retrieve
+          # commit parents" error from the ocular code coverage upload.
+          fetch-depth: 5
+
+      # Setup the PHP version to use for the test and include xdebug to generate the code coverage file.
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+
+      # Setup the required packages for the version being tested and install the packages
+      - name: Install dependencies
+        run: |
+          COMPOSER_MEMORY_LIMIT=-1 composer require "illuminate/database:${{ matrix.laravel }}" --no-update
+          composer update --prefer-dist --no-interaction
+
+      # Run the unit tests and generate the code coverage file.
+      - name: Run phpunit tests
+        run: ./vendor/bin/phpunit --coverage-clover ./clover.xml
+
+      # Send the code coverage file regardless of the tests passing or failing.
+      - name: Send coverage
+        if: success() || failure()
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover ./clover.xml
