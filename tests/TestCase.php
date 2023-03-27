@@ -4,14 +4,20 @@ namespace ShiftOneLabs\LaravelCascadeDeletes\Tests;
 
 use ReflectionMethod;
 use ReflectionProperty;
-use PHPUnit_Framework_TestCase;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Capsule\Manager as DB;
+use PHPUnit\Framework\TestCase as PhpunitTestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
-class TestCase extends PHPUnit_Framework_TestCase
+class TestCase extends PhpunitTestCase
 {
+    /**
+     * Use the integration trait so PHPUnit understands Mockery assertions.
+     */
+    use MockeryPHPUnitIntegration;
+
     /**
      * Setup the database connection.
      *

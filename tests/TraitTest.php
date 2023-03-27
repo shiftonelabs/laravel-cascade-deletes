@@ -33,7 +33,7 @@ class TraitTest extends TestCase
 
         $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
 
-        $this->assertInternalType('array', $names);
+        $this->assertIsArray($names);
     }
 
     public function testGetRelationNamesReturnsPopulatedArrayFromArray()
@@ -52,7 +52,7 @@ class TraitTest extends TestCase
 
         $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
 
-        $this->assertInternalType('array', $names);
+        $this->assertIsArray($names);
     }
 
     public function testGetRelationNamesReturnsPopulatedArrayFromString()
@@ -72,7 +72,7 @@ class TraitTest extends TestCase
 
         $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
 
-        $this->assertInternalType('array', $names);
+        $this->assertIsArray($names);
     }
 
     public function testGetRelationNamesReturnsPopulatedArrayFromNonEmptyValue()
@@ -92,7 +92,7 @@ class TraitTest extends TestCase
 
         $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
 
-        $this->assertInternalType('array', $names);
+        $this->assertIsArray($names);
     }
 
     public function testGetRelationNamesReturnsEmptyArrayFromEmptyValue()

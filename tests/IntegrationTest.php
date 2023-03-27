@@ -17,8 +17,10 @@ class IntegrationTest extends TestCase
 {
     /**
      * Setup run before each test.
+     *
+     * @before
      */
-    public function setUp()
+    public function beforeSetup()
     {
         $this->setUpDatabaseConnection();
 
@@ -84,8 +86,10 @@ class IntegrationTest extends TestCase
 
     /**
      * Tear down run after each test.
+     *
+     * @after
      */
-    public function tearDown()
+    public function afterTearDown()
     {
         $this->schema()->dropIfExists('users');
         $this->schema()->dropIfExists('friends');
@@ -98,7 +102,8 @@ class IntegrationTest extends TestCase
 
     public function testInvalidRelationshipThrowsException()
     {
-        $this->setExpectedException(LogicException::class, 'invalid relationship(s) for cascading deletes');
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('invalid relationship(s) for cascading deletes');
 
         $user = User::create(['email' => 'user@example.com']);
         $user->setCascadeDeletes(['non_existing_relation']);
@@ -108,7 +113,8 @@ class IntegrationTest extends TestCase
 
     public function testInvalidRelationshipTypeThrowsException()
     {
-        $this->setExpectedExceptionRegExp(LogicException::class, '/Relation type .* not handled/');
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessageMatches('/Relation type .* not handled/');
 
         $post = Post::create(['user_id' => 0, 'name' => 'First Post']);
         $post->setCascadeDeletes(['user']);
@@ -118,7 +124,8 @@ class IntegrationTest extends TestCase
 
     public function testNotAllRecordsDeletedThrowsException()
     {
-        $this->setExpectedException(LogicException::class, 'Only deleted [0] out of [1] records');
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Only deleted [0] out of [1] records');
 
         $user = User::create(['email' => 'user@example.com']);
         $post = $user->permanentPosts()->create(['name' => 'First Post']);

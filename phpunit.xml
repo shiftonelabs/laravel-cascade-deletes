@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
-	<testsuites>
-		<testsuite name="Laravel Cascade Deletes Test Suite">
-			<directory suffix="Test.php">./tests/</directory>
-		</testsuite>
-	</testsuites>
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">./src</directory>
-			<exclude>
-				<file>./src/CascadesDeletesModel.php</file>
-			</exclude>
-		</whitelist>
-	</filter>
+         stopOnFailure="false"
+         cacheResult="false">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+    <exclude>
+      <file>./src/CascadesDeletesModel.php</file>
+    </exclude>
+  </coverage>
+  <testsuites>
+    <testsuite name="Laravel Cascade Deletes Test Suite">
+      <directory suffix="Test.php">./tests/</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
