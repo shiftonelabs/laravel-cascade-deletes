@@ -24,7 +24,7 @@ class TestCase extends PhpunitTestCase
      */
     public function setUpDatabaseConnection()
     {
-        $db = new DB;
+        $db = new DB();
 
         $db->addConnection([
             'driver'    => 'sqlite',
@@ -42,16 +42,6 @@ class TestCase extends PhpunitTestCase
     }
 
     /**
-     * Get a database connection instance.
-     *
-     * @return \Illuminate\Database\Connection
-     */
-    protected function connection($connection = 'default')
-    {
-        return Model::getConnectionResolver()->connection($connection);
-    }
-
-    /**
      * Get a schema builder instance.
      *
      * @return \Illuminate\Database\Schema\Builder
@@ -59,6 +49,16 @@ class TestCase extends PhpunitTestCase
     protected function schema($connection = 'default')
     {
         return $this->connection($connection)->getSchemaBuilder();
+    }
+
+    /**
+     * Get a database connection instance.
+     *
+     * @return \Illuminate\Database\Connection
+     */
+    protected function connection($connection = 'default')
+    {
+        return Model::getConnectionResolver()->connection($connection);
     }
 
     /**

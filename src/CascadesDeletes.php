@@ -139,6 +139,9 @@ trait CascadesDeletes
      */
     public function getInvalidCascadeDeletesRelations(array $relations = null)
     {
+        // This will get the array keys for any item in the array where the
+        // value is null. If the value is null, that means that the name
+        // of the relation provided does not return a Relation object.
         return array_keys($relations ?: $this->getCascadeDeletesRelations(), null);
     }
 
