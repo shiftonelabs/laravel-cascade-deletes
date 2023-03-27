@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Removed
+- Removed support for Laravel 4.1 - Laravel 8.x. These are all EOL and will never change, so version 1.0.3 will always work for them.
+- Removed support for PHP 5.5 - PHP 7.4. These are all EOL and will never change, so version 1.0.3 will always work for them.
+
+### Changed
+- Updated package dependencies to support new minimum Laravel and PHP versions.
+- Updated CI configs to support new minimum Laravel and PHP versions.
+- Updated the README to reflect the new version changes.
 
 ## [1.0.3] - 2023-03-24
 ### Changed
