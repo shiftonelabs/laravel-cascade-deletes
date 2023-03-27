@@ -2,12 +2,11 @@
 
 namespace ShiftOneLabs\LaravelCascadeDeletes\Tests\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class SoftPost extends Post
 {
-    use SoftDeleteTrait;
-
-    // Property defined for Laravel 4.1. Should be harmless for later versions.
-    protected $softDelete = true;
+    use SoftDeletes;
 
     protected $table = 'posts';
 

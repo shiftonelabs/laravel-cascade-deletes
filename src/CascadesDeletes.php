@@ -4,7 +4,6 @@ namespace ShiftOneLabs\LaravelCascadeDeletes;
 
 use LogicException;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -64,16 +63,7 @@ trait CascadesDeletes
 
                         foreach ($children as $child) {
                             // Delete the record using the proper method.
-                            $child->$deleteMethod();
-
-                            // forceDelete doesn't return anything until Laravel 5.2. Check
-                            // exists property to determine if the delete was successful
-                            // since that is the last thing set before delete returns.
-                            //
-                            // Starting in Laravel 5.5, soft deleted records do not set the
-                            // exists property to false, so if exists is still true, we
-                            // need to check if the deleted at column is set.
-                            $deleted += (!$child->exists || (method_exists($child, 'getDeletedAtColumn') && !empty($child->{$child->getDeletedAtColumn()})));
+                            $deleted += $child->$deleteMethod();
                         }
                     } else {
                         // Not all relationship types make sense for cascading. As an
@@ -166,13 +156,8 @@ trait CascadesDeletes
         // If this is a force delete and the related model is using soft deletes,
         // we need to use the withTrashed() scope on the relationship query to
         // ensure all related records, plus soft deleted, are force deleted.
-        if ($this->isCascadeDeletesForceDeleting()) {
-            // Laravel 4.1 has the withTrashed method directly on the Eloquent
-            // query builder, however Laravel 4.2+ uses a withTrashed macro
-            // on the Eloquent query builder.
-            if (!class_exists(SoftDeletingScope::class) || !is_null($query->getMacro('withTrashed'))) {
-                $query = $query->withTrashed();
-            }
+        if ($this->isCascadeDeletesForceDeleting() && !is_null($query->getMacro('withTrashed'))) {
+            $query = $query->withTrashed();
         }
 
         return $query;
@@ -185,13 +170,6 @@ trait CascadesDeletes
      */
     public function isCascadeDeletesForceDeleting()
     {
-        // Laravel 4.1 uses the softDelete property, and the only
-        // indication that the delete should be forced is when
-        // the softDelete property is set to false.
-        if (property_exists($this, 'softDelete') && !class_exists(SoftDeletingScope::class)) {
-            return !$this->softDelete;
-        }
-
         return property_exists($this, 'forceDeleting') && $this->forceDeleting;
     }
 }

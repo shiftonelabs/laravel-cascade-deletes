@@ -7,7 +7,7 @@ use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 class InvalidKid extends Model
 {
-    use CascadesDeletes, BootsCascadesDeletesTrait;
+    use CascadesDeletes;
 
     protected $guarded = [];
 

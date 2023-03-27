@@ -38,17 +38,8 @@ class TestCase extends PhpunitTestCase
         $db->setAsGlobal();
 
         // This is required for testing Model events. If this is not done, the
-        // events will only fire on the first test. clearBootedModels() was
-        // added in 5.1, so use it if possible, otherwise use reflection.
-        if (method_exists(Model::class, 'clearBootedModels')) {
-            Model::clearBootedModels();
-        } else {
-            $this->setRestrictedValue(Model::class, 'booted', []);
-            // Laravel 4.1 does not have the globalScopes property
-            if (property_exists(Model::class, 'globalScopes')) {
-                $this->setRestrictedValue(Model::class, 'globalScopes', []);
-            }
-        }
+        // events will only fire on the first test.
+        Model::clearBootedModels();
     }
 
     /**
