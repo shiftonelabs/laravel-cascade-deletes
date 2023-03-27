@@ -30,7 +30,7 @@ class TraitTest extends TestCase
     {
         $user = new User();
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertIsArray($names);
     }
@@ -39,7 +39,7 @@ class TraitTest extends TestCase
     {
         $user = new User();
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertNotEmpty($names);
     }
@@ -49,7 +49,7 @@ class TraitTest extends TestCase
         $user = new User();
         $user->setCascadeDeletes('string_value');
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertIsArray($names);
     }
@@ -59,7 +59,7 @@ class TraitTest extends TestCase
         $user = new User();
         $user->setCascadeDeletes('string_value');
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertNotEmpty($names);
     }
@@ -69,7 +69,7 @@ class TraitTest extends TestCase
         $user = new User();
         $user->setCascadeDeletes(1234);
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertIsArray($names);
     }
@@ -79,7 +79,7 @@ class TraitTest extends TestCase
         $user = new User();
         $user->setCascadeDeletes(1234);
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertNotEmpty($names);
     }
@@ -89,7 +89,7 @@ class TraitTest extends TestCase
         $user = new User();
         $user->setCascadeDeletes(null);
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertIsArray($names);
     }
@@ -99,7 +99,7 @@ class TraitTest extends TestCase
         $user = new User();
         $user->setCascadeDeletes(null);
 
-        $names = $this->callRestrictedMethod($user, 'getCascadeDeletesRelationNames');
+        $names = $user->getCascadeDeletesRelationNames();
 
         $this->assertEmpty($names);
     }
@@ -114,7 +114,7 @@ class TraitTest extends TestCase
             'photos' => $user->photos(),
         ];
 
-        $relations = $this->callRestrictedMethod($user, 'getCascadeDeletesRelations');
+        $relations = $user->getCascadeDeletesRelations();
 
         $this->assertEquals($expected, $relations);
     }
@@ -129,7 +129,7 @@ class TraitTest extends TestCase
             1234 => null,
         ];
 
-        $relations = $this->callRestrictedMethod($user, 'getCascadeDeletesRelations');
+        $relations = $user->getCascadeDeletesRelations();
 
         $this->assertEquals($expected, $relations);
     }
@@ -143,7 +143,7 @@ class TraitTest extends TestCase
             'posts' => $user->posts(),
         ];
 
-        $relations = $this->callRestrictedMethod($user, 'getCascadeDeletesRelations');
+        $relations = $user->getCascadeDeletesRelations();
 
         $this->assertEquals($expected, $relations);
     }
@@ -154,7 +154,7 @@ class TraitTest extends TestCase
         $user->setCascadeDeletes(['friends', 'asdf', 1234]);
         $expected = ['asdf', 1234];
 
-        $names = $this->callRestrictedMethod($user, 'getInvalidCascadeDeletesRelations');
+        $names = $user->getInvalidCascadeDeletesRelations();
 
         $this->assertEquals($expected, $names);
     }
@@ -165,7 +165,7 @@ class TraitTest extends TestCase
         $user->setCascadeDeletes(['asdf', '', 0, null, 1234]);
         $expected = ['asdf', 1234];
 
-        $names = $this->callRestrictedMethod($user, 'getInvalidCascadeDeletesRelations');
+        $names = $user->getInvalidCascadeDeletesRelations();
 
         $this->assertEquals($expected, $names);
     }

@@ -2,7 +2,6 @@
 
 namespace ShiftOneLabs\LaravelCascadeDeletes\Tests;
 
-use ReflectionMethod;
 use ReflectionProperty;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
@@ -60,23 +59,6 @@ class TestCase extends PhpunitTestCase
     protected function schema($connection = 'default')
     {
         return $this->connection($connection)->getSchemaBuilder();
-    }
-
-    /**
-     * Use reflection to call a restricted (private/protected) method on an object.
-     *
-     * @param  object  $object
-     * @param  string  $method
-     * @param  array   $args
-     *
-     * @return mixed
-     */
-    protected function callRestrictedMethod($object, $method, array $args = [])
-    {
-        $reflectionMethod = new ReflectionMethod($object, $method);
-        $reflectionMethod->setAccessible(true);
-
-        return $reflectionMethod->invokeArgs($object, $args);
     }
 
     /**
