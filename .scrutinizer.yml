@@ -2,7 +2,7 @@ build:
     nodes:
         analysis:
             environment:
-                php: 7.4
+                php: 8.2
             tests:
                 override:
                     - php-scrutinizer-run
@@ -14,4 +14,4 @@ filter:
 tools:
     external_code_coverage:
         timeout: 5400
-        runs: 72
+        runs: 5

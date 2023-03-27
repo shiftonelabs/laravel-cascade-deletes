@@ -6,7 +6,7 @@ jobs:
   phpcs:
     runs-on: ubuntu-latest
 
-    name: phpcs - PHP 7.4
+    name: phpcs - PHP 8.2
 
     steps:
       - name: Checkout repo
@@ -16,7 +16,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.2'
 
       # Dependencies needed for the shiftonelabs/codesniffer-standard package.
       - name: Install dependencies
@@ -35,66 +35,11 @@ jobs:
 
       matrix:
         os: [ubuntu-latest]
-        php: ['7.0', '7.1', '7.2', '7.3', '7.4']
-        laravel: ['4.1.*', '4.2.*', '5.0.*', '5.1.*', '5.2.*', '5.3.*', '5.4.*', '5.5.*', '5.6.*', '5.7.*', '5.8.*', '6.*', '7.*', '8.*']
-        include:
-          - os: ubuntu-latest
-            php: '5.5'
-            laravel: '4.1.*'
-          - os: ubuntu-latest
-            php: '5.5'
-            laravel: '4.2.*'
-          - os: ubuntu-latest
-            php: '5.5'
-            laravel: '5.0.*'
-          - os: ubuntu-latest
-            php: '5.5'
-            laravel: '5.1.*'
-          - os: ubuntu-latest
-            php: '5.5'
-            laravel: '5.2.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '4.1.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '4.2.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '5.0.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '5.1.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '5.2.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '5.3.*'
-          - os: ubuntu-latest
-            php: '5.6'
-            laravel: '5.4.*'
+        php: ['8.0', '8.1', '8.2']
+        laravel: ['9.*', '10.*']
         exclude:
-          - php: '7.0'
-            laravel: '5.6.*'
-          - php: '7.0'
-            laravel: '5.7.*'
-          - php: '7.0'
-            laravel: '5.8.*'
-          - php: '7.0'
-            laravel: '6.*'
-          - php: '7.0'
-            laravel: '7.*'
-          - php: '7.0'
-            laravel: '8.*'
-          - php: '7.1'
-            laravel: '6.*'
-          - php: '7.1'
-            laravel: '7.*'
-          - php: '7.1'
-            laravel: '8.*'
-          - php: '7.2'
-            laravel: '8.*'
+          - php: '8.0'
+            laravel: '10.*'
 
     name: tests - PHP ${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
 
@@ -127,5 +72,5 @@ jobs:
       - name: Send coverage
         if: success() || failure()
         run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover ./clover.xml
+          composer global require scrutinizer/ocular
+          ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover ./clover.xml
