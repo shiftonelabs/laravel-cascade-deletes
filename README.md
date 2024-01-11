@@ -93,7 +93,7 @@ class Profile extends Model {
 
     public function addresses()
     {
-        return $this->morphsMany(Address::class, 'addressable');
+        return $this->morphMany(Address::class, 'addressable');
     }
 }
 ```
