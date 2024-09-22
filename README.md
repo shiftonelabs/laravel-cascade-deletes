@@ -13,9 +13,9 @@ For example, if you are using `SoftDeletes`, or are using polymorphic relationsh
 
 ## Versions
 
-This package has been tested on Laravel 4.1 through Laravel 10.x, though it may continue to work on later versions as they are released. This section will be updated to reflect the versions on which the package has actually been tested.
+This package has been tested on Laravel 4.1 through Laravel 11.x, though it may continue to work on later versions as they are released. This section will be updated to reflect the versions on which the package has actually been tested.
 
-This readme has been updated to show information for the most currently supported versions (9.x - 10.x). For Laravel 4.1 through Laravel 8.x, view the 1.x branch.
+This readme has been updated to show information for the most currently supported versions (9.x - 11.x). For Laravel 4.1 through Laravel 8.x, view the 1.x branch.
 
 ## Install
 
