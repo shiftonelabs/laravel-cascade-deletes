@@ -6,7 +6,7 @@ jobs:
   phpcs:
     runs-on: ubuntu-latest
 
-    name: phpcs - PHP 8.2
+    name: phpcs - PHP 8.3
 
     steps:
       - name: Checkout repo
@@ -16,7 +16,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       # Dependencies needed for the shiftonelabs/codesniffer-standard package.
       - name: Install dependencies
