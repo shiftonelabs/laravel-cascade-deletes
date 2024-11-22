@@ -137,7 +137,7 @@ trait CascadesDeletes
      *
      * @return array
      */
-    public function getInvalidCascadeDeletesRelations(array $relations = null)
+    public function getInvalidCascadeDeletesRelations(?array $relations = null)
     {
         // This will get the array keys for any item in the array where the
         // value is null. If the value is null, that means that the name
