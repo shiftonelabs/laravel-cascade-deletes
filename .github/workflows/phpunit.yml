@@ -70,7 +70,10 @@ jobs:
 
       # Run the unit tests and generate the code coverage file.
       - name: Run phpunit tests
-        run: ./vendor/bin/phpunit --coverage-clover ./clover.xml
+        run: |
+          PHPUNIT_CONFIG=""
+          ( [[ -z "${PHPUNIT_CONFIG}" ]] && [[ "${{ matrix.php }}" == "8.0" ]] ) && PHPUNIT_CONFIG="--configuration phpunit.9.xml"
+          ./vendor/bin/phpunit ${PHPUNIT_CONFIG} --coverage-clover ./clover.xml
 
       # Send the code coverage file regardless of the tests passing or failing.
       - name: Send coverage
