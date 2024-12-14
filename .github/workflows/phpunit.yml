@@ -73,6 +73,7 @@ jobs:
         run: |
           PHPUNIT_CONFIG=""
           ( [[ -z "${PHPUNIT_CONFIG}" ]] && [[ "${{ matrix.php }}" == "8.0" ]] ) && PHPUNIT_CONFIG="--configuration phpunit.9.xml"
+          ( [[ -z "${PHPUNIT_CONFIG}" ]] && [[ "${{ matrix.php }}" == "8.4" ]] && ( [[ "${{ matrix.laravel }}" == "9.*" ]] || [[ "${{ matrix.laravel }}" == "10.*" ]] ) ) && PHPUNIT_CONFIG="--configuration phpunit.10.ignore.deprecations.xml"
           ./vendor/bin/phpunit ${PHPUNIT_CONFIG} --coverage-clover ./clover.xml
 
       # Send the code coverage file regardless of the tests passing or failing.
