@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added new phpunit config for older PHP version.
+- Added new phpunit config for incompatible PHP/Laravel versions.
+
+### Changed
+- Updated phpunit config to latest version.
+- Updated phpunit config to ensure tests fail on warnings, notices, and deprecations.
+- Updated Github Actions to use different phpunit configs.
+- Updated CI configs to add support for PHP 8.4.
+
+### Fixed
+- Fixed deprecation notice in PHP 8.4. ([#12](https://github.com/shiftonelabs/laravel-cascade-deletes/pull/12))
 
 ## [2.0.1] - 2024-09-22
 ### Changed
